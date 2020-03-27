@@ -1,0 +1,13 @@
+{
+  "name": "hello-react",
+  "version": "1.0.0",
+  "description": "Getting to know react",
+  "main": "index.js",
+  "author": "Rajan",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1"
+  }
+}

@@ -3,12 +3,12 @@ var rootDiv = document.getElementById('app');
 class MyApp extends React.Component {
 
     state = {
-        response = null
+        response: null
     }
 
     setResponse = (_resp) => {
         this.setState({
-        response: _resp
+            response: _resp
         });
     }
 
@@ -29,7 +29,8 @@ class MyApp extends React.Component {
 
 class Form extends React.Component {
 
-    sendRequest(e) {
+    sendRequest = (e) => {
+
         e.preventDefault();
 
         let url = e.target.elements.url.value;
@@ -56,12 +57,12 @@ class Form extends React.Component {
 
     render() {
         return (
-            <form onSubmit ={this.sendRequest}>
+            <form onSubmit={this.sendRequest}>
                 <select name="method" required>
                     <option value="GET">GET</option>
                     <option value="POST">POST</option>
                 </select>
-                <input type = "text" name="url" required/>
+                <input type = "text" name="url" required defaultValue="https://jsonplaceholder.typicode.com/todos/1" />
                 <textarea name="body" rows="4" cols="40">
 
                 </textarea>
@@ -78,7 +79,7 @@ class ResultDiv extends React.Component {
         return (
             <div>
                 something here
-                {this.props.response}
+                { JSON.stringify(this.props.response) }
             </div>
         )   
     }

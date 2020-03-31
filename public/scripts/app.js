@@ -295,6 +295,18 @@ class Form extends React.Component {
                     </div>
                 </form>
             </div>
+            <h5>History</h5>
+            {
+                Object.keys(this.state.history).map((key) => (
+                    <div>
+                    <h6>{key} Requests</h6>
+                    <pre>
+                    {JSON.stringify(this.state.history[key], undefined, 4)}
+                    </pre>
+                    </div>
+                ))
+            }  
+
             { this.state.isLoading && <img src="https://codemyui.com/wp-content/uploads/2017/07/fidget-spinner-loading.gif" class="img-fluid" alt="Responsive image"/>}
 
             </div>

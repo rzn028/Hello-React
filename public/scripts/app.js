@@ -24,6 +24,7 @@ class MyApp extends React.Component {
         });
     }
 
+
     render() {
         return (
             <div className="container">
@@ -47,12 +48,35 @@ class MyApp extends React.Component {
 class Form extends React.Component {
 
     state = {
+        history : {},
         headers : {},
         formBody : {},
         jsonBody : null,
         isLoading : false,
     }
 
+
+    componentDidMount() {
+        let history = localStorage.getItem('history');
+        history = JSON.parse(history);
+        if(history){
+            this.setState({history: history});
+        }else{
+            this.setState({history: {}});
+        }
+    }
+
+    componentDidUpdate(nextProps, nextState) {
+
+        console.log(nextState.history);
+        console.log(this.state.history);
+        // if(!Object.is(prevState.history, this.state.history))
+        //     console.log(prevState);
+
+        // let history = this.state.history;
+        // history = JSON.stringify(history);
+        // localStorage.setItem('history', history);
+    }
 
     sendRequest = (e) => {
 
@@ -75,8 +99,6 @@ class Form extends React.Component {
             options['body'] = body;
         }
 
-        console.log(options);
-
         const proxyurl = "https://tranquil-dawn-42121.herokuapp.com/";
         fetch( proxyurl +url, options)
         .then(res => {
@@ -96,9 +118,21 @@ class Form extends React.Component {
         })
         .then(res => {
             if(res){
+
+                let history = this.state.history;
+                if(history[method]){
+                    history[method][url] = options;
+                }else{
+                    history[method] ={};
+                    history[method][url] = options;
+                }
+
+                localStorage.setItem('history', JSON.stringify(history));
+                this.setState({history: history})
                 this.setState({jsonBody: {}});
                 this.setState({formBody: {}});
                 this.props.setResponse(res);
+
             }
             this.setState({isLoading:false});
         });
